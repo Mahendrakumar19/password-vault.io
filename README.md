@@ -45,7 +45,7 @@ A secure, privacy-first password manager built with Next.js, TypeScript, and Mon
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Mahendrakumar19/password-vault.io.git
    cd password-vault
    ```
 
@@ -245,10 +245,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Live Demo**: [Coming Soon]
+- **Live Demo**: [Coming Soon - Deploy to Vercel]
+- **GitHub Repository**: [https://github.com/Mahendrakumar19/password-vault.io](https://github.com/Mahendrakumar19/password-vault.io)
 - **Documentation**: This README
-- **Issues**: GitHub Issues
-- **Security**: Report security issues privately
+- **Issues**: [GitHub Issues](https://github.com/Mahendrakumar19/password-vault.io/issues)
+- **Security**: Report security issues privately via GitHub
 
 ---
 
