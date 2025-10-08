@@ -2,11 +2,13 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { NextRequest } from 'next/server';
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
-if (!JWT_SECRET) {
-  throw new Error('Please define the JWT_SECRET environment variable inside .env.local');
-}
+const getJWTSecret = (): string => {
+  const JWT_SECRET = process.env.JWT_SECRET;
+  if (!JWT_SECRET) {
+    throw new Error('Please define the JWT_SECRET environment variable inside .env.local');
+  }
+  return JWT_SECRET;
+};
 
 export interface JWTPayload {
   userId: string;
@@ -23,12 +25,12 @@ export const comparePassword = async (password: string, hashedPassword: string):
 };
 
 export const generateToken = (payload: JWTPayload): string => {
-  return jwt.sign(payload, JWT_SECRET!, { expiresIn: '7d' });
+  return jwt.sign(payload, getJWTSecret(), { expiresIn: '7d' });
 };
 
 export const verifyToken = (token: string): JWTPayload | null => {
   try {
-    return jwt.verify(token, JWT_SECRET!) as JWTPayload;
+    return jwt.verify(token, getJWTSecret()) as JWTPayload;
   } catch {
     return null;
   }
