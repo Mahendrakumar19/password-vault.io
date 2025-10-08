@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Debug</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white p-8 transition-colors">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-bold mb-4">Dark Mode Test</h1>
+        
+        <div class="mb-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
+            <p>Current HTML classes: <span id="htmlClasses" class="font-mono"></span></p>
+            <p>LocalStorage theme: <span id="themeStorage" class="font-mono"></span></p>
+        </div>
+
+        <button 
+            onclick="toggleDarkMode()"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mb-4"
+        >
+            Toggle Dark Mode
+        </button>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="p-4 bg-blue-500 dark:bg-blue-700 text-white rounded">
+                This should change color
+            </div>
+            <div class="p-4 border-2 border-gray-300 dark:border-gray-600 rounded">
+                Border should change
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateDebugInfo() {
+            document.getElementById('htmlClasses').textContent = document.documentElement.className || '(none)';
+            document.getElementById('themeStorage').textContent = localStorage.getItem('theme') || '(none)';
+        }
+
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const currentTheme = localStorage.getItem('theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            if (newTheme === 'dark') {
+                html.classList.add('dark');
+            } else {
+                html.classList.remove('dark');
+            }
+            
+            localStorage.setItem('theme', newTheme);
+            updateDebugInfo();
+        }
+
+        // Initialize
+        updateDebugInfo();
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            updateDebugInfo();
+        }
+    </script>
+</body>
+</html>
