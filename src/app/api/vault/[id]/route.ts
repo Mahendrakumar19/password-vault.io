@@ -6,7 +6,7 @@ import { ApiResponse } from '@/types';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
@@ -29,8 +29,9 @@ export async function PUT(
       );
     }
 
+    const { id } = await params;
     const vaultItem = await VaultItem.findOneAndUpdate(
-      { _id: params.id, userId: userData.userId },
+      { _id: id, userId: userData.userId },
       {
         title: title.trim(),
         encryptedData,
@@ -77,7 +78,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
@@ -90,8 +91,9 @@ export async function DELETE(
       );
     }
 
+    const { id } = await params;
     const vaultItem = await VaultItem.findOneAndDelete({
-      _id: params.id,
+      _id: id,
       userId: userData.userId,
     });
 
